@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Me Please ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(300deg, #ffc3a0, #ffafbd, #e0c3fc, #8ec5fc);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* พื้นหลังเคลื่อนไหว */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(5px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+
+        /* กรอบรูป QR Code */
+        .qr-frame {
+            position: relative;
+            display: inline-block;
+            padding: 15px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+        }
+
+        .qr-img {
+            width: 350px; /* ปรับขนาด QR Code ตรงนี้ */
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* เอฟเฟกต์ลอย */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* หัวใจลอยพื้นหลัง */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 255, 255, 0.6);
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            transform: rotate(45deg);
+            animation: rise 6s infinite ease-in;
+            z-index: 1;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+        .heart::before { top: -10px; left: 0; }
+        .heart::after { left: -10px; top: 0; }
+
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(45deg) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(45deg) scale(1.2); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <div class="container">
+        <h1>🌹 For You 🌹</h1>
+        <p>น้องอ้วนเเสกนเลย</p>
+        
+        <div class="qr-frame">
+            <img src="QR Code.png" class="qr-img" alt="Scan Me">
+        </div>
+    </div>
+
+    <script>
+        // สคริปต์สร้างหัวใจลอยขึ้นมาเรื่อยๆ
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // สุ่มตำแหน่งและขนาด
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 4 + "s"; // 4-7 วินาที
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            // สุ่มสีหัวใจ (ชมพู/ขาว/แดง)
+            const colors = ['#FF99C8', '#FFFFFF', '#FF5C8D', '#E0C3FC'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            heart.style.backgroundColor = randomColor;
+
+            document.getElementById('hearts-container').appendChild(heart);
+
+            // ลบหัวใจเมื่อลอยพ้นจอ
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        setInterval(createHeart, 300); // สร้างหัวใจใหม่ทุก 0.3 วินาที
+    </script>
+
+</body>
+</html>
